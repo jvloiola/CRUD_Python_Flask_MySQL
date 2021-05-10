@@ -25,24 +25,7 @@ def update(tabela, chave, valor_chave, colunas, valores):
 def insert(tabela, colunas, valores):
     execute(f"INSERT INTO {tabela} ({','.join(colunas)}) VALUES ({','.join(['%s' for valor in valores])})", valores)
 
-@app.route("/idiomas", methods=["GET", "POST"])
-def busca_idiomas():
-    sigla = request.json["sigla"]
-    nome = request.json["nome"]
-
-    insert("idiomas", ["nome", "sigla"], [nome, sigla])
-
-    return jsonify(query("SELECT * FROM idiomas"))
-
-
-@app.route("/idiomas/<int:id>", methods=["PUT"])
-def idiomas(id):
-    sigla = request.json["sigla"]
-    nome = request.json["nome"]
-
-    update("idiomas", "id", id, ["sigla", "nome"],[sigla, nome])
-
-    return jsonify(query("SELECT * FROM idiomas WHERE id = %s",(id,)))
+qery("SELECT * FROM idiomas WHERE id = %s",(id,)))
 
 
 if __name__ == "__main__":
